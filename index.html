@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+ <link rel="stylesheet" href="style.css">
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    
+</head>
+
+<body>
+    <div id="messages" class="messages"></div>
+
+    <div id="sendMsg"class="sendMsg">
+        <input type="text" id="msgTxt" class="msgTxt" placeholder="ENTER YOUR MSG...">
+        
+        <button type="button" onclick="module.sendMsg(),clickk()" class="msgBtn" id="btn-chat">Send</button>
+     
+    </div>
+
+    <script>
+        module = {};
+    </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, set, remove, onChildAdded, onChildRemoved } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCYScp6fYB2-0TpSIcdqH1AxxdVkg6DIns",
+    authDomain: "chat-app-bd71a.firebaseapp.com",
+    projectId: "chat-app-bd71a",
+    storageBucket: "chat-app-bd71a.appspot.com",
+    messagingSenderId: "959438720727",
+    appId: "1:959438720727:web:869d2e4fe40f24b8b22a92",
+    measurementId: "G-HZXJM7DD9Y"
+  };
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // variables
+        var msgTxt = document.getElementById('msgTxt');
+        var sender;
+        if(sessionStorage.getItem('sender')){
+            sender = sessionStorage.getItem('sender');
+        } else {
+            sender = prompt('PLEASE ENTER YOUR NAME');
+            sessionStorage.setItem('sender',sender);
+            
+        }
+
+        // TO SEND MESSAGES
+        module.sendMsg = function sendMsg(){
+            var msg = msgTxt.value;
+            var timestamp = new Date().getTime();
+            set(ref(db,"messages/"+timestamp),{
+                msg : msg,
+                sender : sender
+            })
+
+            msgTxt.value="";
+        }
+
+        // TO RECEIVE MSG
+        onChildAdded(ref(db,"messages"), (data)=>{
+            if(data.val().sender == sender){
+                messages.innerHTML += "<div style=justify-content:end class=outer id="+data.key+"><div id=inner class=me>you : "+data.val().msg+"<button class = some id=dltMsg onclick=module.dltMsg("+data.key+")>X</button></div></div>";
+            } else {
+                messages.innerHTML += "<div class=outer id="+data.key+"><div id=inner class=notMe>"+data.val().sender+" : "+data.val().msg+"</div></div>";
+            }
+        })
+
+        // TO DELETE MSG
+        module.dltMsg = function dltMsg(key){
+            remove(ref(db,"messages/"+key));
+        }
+
+        // WHEN MSG IS DELETED
+        onChildRemoved(ref(db,"messages"),(data)=>{
+            var msgBox = document.getElementById(data.key);
+            messages.removeChild(msgBox);
+        })  
+    </script>
+    
+  
+</body>
+
+</html>

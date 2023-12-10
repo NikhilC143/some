@@ -1,0 +1,170 @@
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+:root {
+  --primary-light: #8abdff;
+  --primary: #6d5dfc;
+  --primary-dark: #5b0eeb;
+  --white: #fff;
+  --greyLight-1: #e4ebf5;
+  --greyLight-2: #c8d0e7;
+  --greyLight-3: #bec8e4;
+  --greyDark: #9baacf;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--greyLight-1);
+}
+
+.messages {
+  font-size: 25px;
+  background-color: var(--greyLight-1);
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 90%;
+  margin-top: 400px; 
+  width: 100%; /* Adjust the width based on your design */
+  max-width: 600px; /* Set a max-width to ensure readability on larger screens */
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 30px;
+  box-shadow: 0.8rem 0.8rem 1.4rem var(--greyLight-2), -0.2rem -0.2rem 1.8rem var(--white);
+ 
+}
+
+.me {
+  background: var(--white);
+  color: #000000;
+  border-radius: 40px;
+  text-align: right;
+  margin-bottom: 10px; 
+  
+  /* Add some margin for better separation between messages */
+}
+
+.notMe {
+  background: var(--white);
+  color: #000;
+  border-radius: 40px;
+}
+
+.sendMsg{
+  position: fixed;
+  left:35%;
+  bottom:90px;
+  width: 100%;
+  height:50px;
+  width: 30%;
+  background: var(--greyLight-1)
+}
+.msgTxt{
+  white-space: nowrap;
+  position: absolute;
+  left:4%;
+  bottom: 0px;
+  width:calc(98% - 130px);
+  height:100%;
+  padding-left:10px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background: none;
+  border: none;
+  color: var(--greyDark);
+  box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+}
+
+.msgTxt::placeholder{
+  color: var(--greyLight-3);
+}
+.msgTxt:focus{
+  outline: none;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);;
+}
+
+.msgBtn{
+  position: absolute;
+  right:3%;
+  top:0;
+  width: 100px;
+  height:100%;
+  border-radius: 20px;
+  background-color: var(--primary-light);
+  border: none;
+  border-radius: 20px;
+  color: var(--primary-light);
+  background: none;
+  outline: none;
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+}
+.outer{
+  width:100%;
+  margin-top:10px;
+  display:flex;
+}
+#inner{
+  padding:10px;
+  box-sizing: border-box;
+  border-radius:18px;
+  background: none;
+  font-family: inherit;
+  color: var(--black);
+  box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+}
+
+/* Responsive styles for screens 600px and below */
+
+@media (max-width: 1440px) {
+  .messages{
+    font-size: 30px;
+    zoom: 200%;
+    overflow:scroll;
+    overflow-x:hidden;
+    border-color: #000;
+    border-width: 10px;
+    
+  }
+  .sendMsg{
+    zoom: 200%;
+    font-size: 30px;
+    position: relative;
+    top: 830px;
+  }
+  .msgTxt{
+   
+    font-size: 30px;
+    width: 300px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: -150px;
+    color: #e30707;
+    
+  }
+  .msgBtn{
+    width: 130px;
+   position: relative;
+   font-size: 35px;
+   left: 160px;
+  }
+ 
+  }
+
+  @media (max-width:500px)and (min-widht: 1000px){
+    .messages{
+      font-size: 10px;
+      zoom: -200%;
+      overflow:scroll;
+      overflow-x:hidden;
+      border-color: #000;
+      border-width: 10px;
+      
+    }
+   
+  }
+  
